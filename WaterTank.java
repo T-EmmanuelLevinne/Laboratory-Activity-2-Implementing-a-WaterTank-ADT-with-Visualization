@@ -4,7 +4,7 @@ public class WaterTank {
     private double currentLevel;
 
 
-    // ask user to create its own capacity
+    // ask user to create its own capacity diri
     public WaterTank(double capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("Capacity must be positive.");
@@ -13,7 +13,7 @@ public class WaterTank {
         this.currentLevel = 0;
     }
 
-    // add ug tubig
+    // add ug tubig in liters
     public void fill(double liters) {
         if (liters <= 0) {
             System.out.println("Invalid amount, numbers should always be positive.");
@@ -29,7 +29,7 @@ public class WaterTank {
         }
     }
 
-    // remove ug tubig
+    // remove ug tubig in liters
     public void drain(double liters) {
         if (liters <= 0) {
             System.out.println("Invalid amount, numbers should always be positive.");
@@ -45,37 +45,37 @@ public class WaterTank {
         }
     }
 
-    // display current level niya
+    // display current level niya pero dili naka display
     public double getCurrentLevel() {
         return currentLevel;
     }
-
+    // pag puno, a users choice if i check
     public boolean isFull() {
         return currentLevel == capacity;
     }
-
+    // pag empty, a users choice if i check
     public boolean isEmpty() {
         return currentLevel == 0;
     }
-
+    // visualization of the tanke <33
     public void displayTank() {
         int height = 10;
         int filledRows = (int) Math.round((currentLevel / capacity) * height);
 
 
-        System.out.println("        /--------\\");
+        System.out.println("        /════════\\");
         for (int i = height; i > 0; i--) {
             if (i <= filledRows) {
                 if (i == filledRows && currentLevel != capacity) {
-                    System.out.println("        |~~~~~~~~|");
+                    System.out.println("        ║~~~~~~~~║");
                 } else {
-                    System.out.println("        |████████|");
+                    System.out.println("        ║████████║");
                 }
             } else {
-                System.out.println("        |        |");
+                System.out.println("        ║        ║");
             }
         }
-        System.out.println("        \\--------/");
+        System.out.println("        \\════════/");
 
         double percent = (currentLevel / capacity) * 100;
         System.out.printf("Capacity: %.1f Liters | Current Level: %.1f Liters (%.1f%%)\n",
