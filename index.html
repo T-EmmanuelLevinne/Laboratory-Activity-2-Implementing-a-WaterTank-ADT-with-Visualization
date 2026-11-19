@@ -1999,38 +1999,8 @@
         }
 
         /* ========================
-       LOGIN ROLE SWITCH & STUDENT BROWSE SHELL
+       STUDENT BROWSE SHELL
     ======================== */
-        .login-role-pills {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            padding: 4px;
-            background-color: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 18px;
-        }
-
-        .login-role-pill {
-            padding: 8px 10px;
-            border-radius: 7px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: all 0.15s ease;
-        }
-
-        .login-role-pill:hover {
-            color: var(--text-main);
-        }
-
-        .login-role-pill.active {
-            background-color: var(--primary);
-            color: var(--white);
-            box-shadow: var(--shadow-sm);
-        }
-
         .student-shell {
             min-height: 100vh;
             background-color: var(--bg);
@@ -2768,12 +2738,6 @@
 
             <!-- Login Form -->
             <form id="login-form" novalidate>
-                <div class="login-role-pills" role="group" aria-label="Account Type">
-                    <button type="button" class="login-role-pill active" data-quick-login="admin">Admin</button>
-                    <button type="button" class="login-role-pill" data-quick-login="manager">Manager</button>
-                    <button type="button" class="login-role-pill" data-quick-login="staff">Staff</button>
-                    <button type="button" class="login-role-pill" data-quick-login="student">Student</button>
-                </div>
                 <div class="form-group">
                     <label class="form-label" for="login-username">Username or Email</label>
                     <input type="text" id="login-username" class="input-control" placeholder="Enter username or email"
@@ -2824,8 +2788,8 @@
                     <label class="form-label" for="reg-role">Role</label>
                     <select id="reg-role" class="select-control">
                         <option value="Student">Student</option>
-                        <option value="Staff">Canteen Staff</option>
-                        <option value="Manager">Floor Manager</option>
+                        <option value="Staff">Canteen Personnel</option>
+                        <option value="Manager">Canteen Manager</option>
                         <option value="Cashier">Cashier</option>
                         <option value="Inventory Clerk">Inventory Clerk</option>
                         <option value="System Admin">Administrator</option>
@@ -3061,8 +3025,23 @@
                 userRoles: { admin: 'admin', manager: 'manager', staff: 'staff', student: 'student' },
                 currentUserRole: 'admin',
                 currentUserName: 'Administrator',
+                staffFloor: '4th',
                 staffLocation: 'ExampleLocation',
                 managerFloor: '4th',
+                managerLocation: 'ExampleLocation',
+                submittedSalesReports: [
+                    {
+                        id: 'SR-2026-001',
+                        date: 'Nov 19, 2026 · 05:15 PM',
+                        floor: '4th Floor Canteen',
+                        location: 'ExampleLocation',
+                        submittedBy: 'Canteen Manager',
+                        unitsSold: 219,
+                        grossRevenue: 17355,
+                        remarks: 'End-of-day sales summary for 4th Floor · ExampleLocation.',
+                        status: 'Reviewed by Admin'
+                    }
+                ],
                 staffProfileFloorFilter: 'All', // 'All' | '4th' | '3rd' | '2nd'
                 userManagementTab: 'accounts', // 'accounts' | 'staff' | 'students'
                 salesReportLocation: 'All', // 'All' | 'ExampleLocation' | 'ExampleLocation2'
@@ -3254,15 +3233,6 @@
                     { id: 'INC-2026-012', dateTime: 'Nov 13, 2026 · 11:30 AM', location: '4th Floor Dining Hall', severity: 'Low', description: 'Beverage spill near drink dispenser during peak break', reportedBy: 'Maria Santos (Cashier)', status: 'Resolved' },
                     { id: 'INC-2026-011', dateTime: 'Nov 10, 2026 · 07:15 AM', location: 'Main Kitchen Prep Station', severity: 'Medium', description: 'Minor circuit breaker trip on deep fryer outlet', reportedBy: 'Chef Danilo Reyes', status: 'Resolved' },
                     { id: 'INC-2026-010', dateTime: 'Nov 06, 2026 · 02:40 PM', location: 'Cold Storage Walk-in 2', severity: 'High', description: 'Freezer temperature rose to 2°C due to worn door latch', reportedBy: 'Carlo Navarro', status: 'Resolved' }
-                ],
-                correctiveActions: [
-                    { id: 'CAPA-2026-08', finding: 'Freezer door seal fatigue caused temperature rise', rootCause: 'Worn magnetic gasket on Walk-in Freezer 2', assignedTo: 'Campus Maintenance', immediateAction: 'Moved perishables to Walk-in 1', preventiveAction: 'Replaced gasket & added 2-hour digital log alerts', dueDate: 'Nov 15, 2026', status: 'Under Review' },
-                    { id: 'CAPA-2026-07', finding: 'Peak hour line congestion leading to change errors', rootCause: 'Single cashier without large touch cash keypad', assignedTo: 'Lead Cashier M. Santos', immediateAction: 'Enabled oversized digital keypad in POS', preventiveAction: 'Dual cashier shift from 11:30 AM to 1:00 PM', dueDate: 'Nov 12, 2026', status: 'Completed' }
-                ],
-                returnRecords: [
-                    { id: 'RMA-2026-019', date: 'Nov 13, 2026', supplier: 'Mindanao Beverage Distributors', item: 'Iced Milo 250ml Tetra Packs', qty: '2 cases (48 pcs)', reason: 'Dented boxes upon freight unloading', creditAmount: 1440, status: 'Pending Pickup' },
-                    { id: 'RMA-2026-018', date: 'Nov 09, 2026', supplier: 'Golden Harvest Rice & Dry Goods', item: 'Jasmine Rice 25kg Sack', qty: '1 sack', reason: 'Torn inner moisture liner during transit', creditAmount: 1250, status: 'Credited' },
-                    { id: 'RMA-2026-017', date: 'Nov 04, 2026', supplier: 'Buhangin Bakery Supplies', item: 'Burger Buns 12-Pack', qty: '5 packs', reason: 'Near expiry window upon delivery', creditAmount: 375, status: 'Replaced' }
                 ],
                 canteenApplications: [
                     { id: 'APP-2026-044', applicant: 'Davao Fresh Squeeze Juice Co.', type: 'Concession Stall Permit', floor: '4th Floor Canteen', date: 'Nov 12, 2026', permits: 'Mayor Permit, DTI, Sanitary & Health Cards', status: 'Under Review' },
@@ -3631,7 +3601,7 @@
             }
 
             function renderAnnexGFormPaper(draft) {
-                const customerTypes = ['Student', 'Faculty', 'Canteen Staff', 'Campus Staff', 'Visitor / Guest'];
+                const customerTypes = ['Student', 'Faculty', 'Canteen Personnel', 'Campus Staff', 'Visitor / Guest'];
                 const floorChoices = ['4th Floor Canteen', '3rd Floor Canteen', '2nd Floor Canteen'];
 
                 const criteriaRowsHtml = ANNEX_G_CRITERIA.map((c) => {
@@ -3904,8 +3874,7 @@
                     label: 'Sales & Transactions',
                     items: [
                         { id: 'pos', label: 'Point of Sale', icon: '<rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="18" y2="16"/>' },
-                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' },
-                        { id: 'return-merchandise', label: 'Return Merchandise Record', icon: '<polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>' }
+                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' }
                     ]
                 },
                 {
@@ -3913,7 +3882,6 @@
                     id: 'catalog-stock',
                     label: 'Catalog & Stock',
                     items: [
-                        { id: 'products', label: 'Products', icon: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>' },
                         { id: 'proposed-products', label: 'Proposed Product List', icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
                         { id: 'inventory', label: 'Inventory', icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>' }
                     ]
@@ -3951,9 +3919,7 @@
                     id: 'compliance-inspections',
                     label: 'Compliance & Inspections',
                     items: [
-                        { id: 'food-safety', label: 'Food Safety Inspection', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>' },
-                        { id: 'inspection-checklist', label: 'Canteen Inspection Checklist', icon: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>' },
-                        { id: 'canteen-application', label: 'Canteen Application Log', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' }
+                        { id: 'food-safety', label: 'Food Safety Inspection', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>' }
                     ]
                 },
                 {
@@ -3963,8 +3929,7 @@
                     items: [
                         { id: 'feedback', label: 'Customer Feedback', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
                         { id: 'customer-complaints', label: 'Customer Complains Log', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
-                        { id: 'incident-report', label: 'Canteen Incident Report', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
-                        { id: 'corrective-action', label: 'Corrective Action', icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' }
+                        { id: 'incident-report', label: 'Canteen Incident Report', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' }
                     ]
                 },
                 {
@@ -3992,19 +3957,12 @@
 
             const STAFF_NAV_STRUCTURE = [
                 {
-                    type: 'item',
-                    id: 'dashboard',
-                    label: 'Dashboard',
-                    icon: '<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>'
-                },
-                {
                     type: 'group',
                     id: 'sales-transactions',
                     label: 'Sales & Transactions',
                     items: [
                         { id: 'pos', label: 'Point of Sale', icon: '<rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="18" y2="16"/>' },
-                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' },
-                        { id: 'return-merchandise', label: 'Return Merchandise Record', icon: '<polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>' }
+                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' }
                     ]
                 },
                 {
@@ -4012,26 +3970,8 @@
                     id: 'catalog-stock',
                     label: 'Catalog & Stock',
                     items: [
-                        { id: 'products', label: 'Products', icon: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>' },
                         { id: 'proposed-products', label: 'Proposed Product List', icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
                         { id: 'inventory', label: 'Inventory', icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>' }
-                    ]
-                },
-                {
-                    type: 'group',
-                    id: 'procurement',
-                    label: 'Procurement',
-                    items: [
-                        { id: 'purchasing', label: 'Purchasing', icon: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>' },
-                        { id: 'suppliers', label: 'Suppliers', icon: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>' }
-                    ]
-                },
-                {
-                    type: 'group',
-                    id: 'reports',
-                    label: 'Reports',
-                    items: [
-                        { id: 'sales-reports', label: 'General Sales Report ( Specified Location )', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' }
                     ]
                 },
                 {
@@ -4039,19 +3979,7 @@
                     id: 'compliance-inspections',
                     label: 'Compliance & Inspections',
                     items: [
-                        { id: 'food-safety', label: 'Food Safety Inspection', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>' },
-                        { id: 'inspection-checklist', label: 'Canteen Inspection Checklist', icon: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>' },
-                        { id: 'canteen-application', label: 'Canteen Application Log', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' }
-                    ]
-                },
-                {
-                    type: 'group',
-                    id: 'feedback-incidents',
-                    label: 'Feedback & Incidents',
-                    items: [
-                        { id: 'feedback', label: 'Customer Feedback', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
-                        { id: 'incident-report', label: 'Canteen Incident Report', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
-                        { id: 'corrective-action', label: 'Corrective Action', icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' }
+                        { id: 'food-safety', label: 'Food Safety Inspection', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>' }
                     ]
                 },
                 {
@@ -4078,8 +4006,7 @@
                     label: 'Sales & Transactions',
                     items: [
                         { id: 'pos', label: 'Point of Sale', icon: '<rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="18" y2="16"/>' },
-                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' },
-                        { id: 'return-merchandise', label: 'Return Merchandise Record', icon: '<polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>' }
+                        { id: 'orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' }
                     ]
                 },
                 {
@@ -4087,7 +4014,6 @@
                     id: 'catalog-stock',
                     label: 'Catalog & Stock',
                     items: [
-                        { id: 'products', label: 'Products', icon: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>' },
                         { id: 'proposed-products', label: 'Proposed Product List', icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
                         { id: 'inventory', label: 'Inventory', icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>' }
                     ]
@@ -4106,7 +4032,7 @@
                     id: 'reports',
                     label: 'Reports',
                     items: [
-                        { id: 'sales-reports', label: 'General Sales Report', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
+                        { id: 'sales-reports', label: 'Sales Report', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
                         { id: 'financial-reports', label: 'Financial Reports', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' }
                     ]
                 },
@@ -4137,8 +4063,7 @@
                     items: [
                         { id: 'feedback', label: 'Customer Feedback', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
                         { id: 'customer-complaints', label: 'Customer Complains Log', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
-                        { id: 'incident-report', label: 'Canteen Incident Report', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
-                        { id: 'corrective-action', label: 'Corrective Action', icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' }
+                        { id: 'incident-report', label: 'Canteen Incident Report', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' }
                     ]
                 },
                 {
@@ -4184,7 +4109,7 @@
                 {
                     type: 'group',
                     id: 'student-sales-transactions',
-                    label: 'Sales & Transactions',
+                    label: 'Order History',
                     items: [
                         { id: 'student-orders', label: 'Orders', icon: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>' }
                     ]
@@ -4202,17 +4127,14 @@
                     id: 'student-feedback-incidents',
                     label: 'Feedback & Incidents',
                     items: [
-                        { id: 'student-feedback', label: 'Customer Feedback', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
-                        { id: 'student-complaint', label: 'Customer Complains Log', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' }
+                        { id: 'student-feedback', label: 'Customer Feedback', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' }
                     ]
                 },
                 {
-                    type: 'group',
-                    id: 'student-users-profiles',
-                    label: 'Users & Profiles',
-                    items: [
-                        { id: 'student-profile', label: 'Students Profile', icon: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>' }
-                    ]
+                    type: 'item',
+                    id: 'student-profile',
+                    label: 'Your Profile',
+                    icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
                 }
             ];
 
@@ -4430,30 +4352,6 @@
                 showToast('Registration successful!', 'success');
             });
 
-            document.querySelectorAll('[data-quick-login]').forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    const mode = btn.getAttribute('data-quick-login');
-                    document.querySelectorAll('[data-quick-login]').forEach((b) => {
-                        b.classList.toggle('active', b === btn);
-                    });
-                    loginError.classList.add('hidden');
-                    loginSuccess.classList.add('hidden');
-                    if (mode === 'student') {
-                        loginUsername.value = 'student';
-                        loginPassword.value = 'student';
-                    } else if (mode === 'staff') {
-                        loginUsername.value = 'staff';
-                        loginPassword.value = 'staff';
-                    } else if (mode === 'manager') {
-                        loginUsername.value = 'manager';
-                        loginPassword.value = 'manager';
-                    } else {
-                        loginUsername.value = 'admin';
-                        loginPassword.value = 'admin';
-                    }
-                });
-            });
-
             function updateAppShellUserUI(displayName, emailLabel) {
                 const isStaff = state.currentUserRole === 'staff';
                 const isManager = state.currentUserRole === 'manager';
@@ -4464,12 +4362,12 @@
                 const ddEmailEl = document.getElementById('app-dropdown-email');
                 const settingsAction = document.getElementById('profile-settings-action');
 
-                if (avatarEl) avatarEl.textContent = isStaff ? 'ST' : (isManager ? 'MG' : 'AD');
+                if (avatarEl) avatarEl.textContent = isStaff ? 'CP' : (isManager ? 'CM' : 'AD');
                 if (nameEl) nameEl.textContent = displayName;
                 if (roleEl) {
                     roleEl.textContent = isStaff
-                        ? `Staff · ${state.staffLocation}`
-                        : (isManager ? `Manager · ${state.managerFloor} Floor` : 'JMCFI-MealHub Admin');
+                        ? `Canteen Personnel · ${state.staffFloor} Floor · ${state.staffLocation}`
+                        : (isManager ? `Canteen Manager · ${state.managerFloor} Floor · ${state.managerLocation}` : 'JMCFI-MealHub Admin');
                 }
                 if (ddNameEl) ddNameEl.textContent = displayName;
                 if (ddEmailEl) ddEmailEl.textContent = emailLabel;
@@ -4521,22 +4419,22 @@
                     studentShell.classList.add('hidden');
                     appShell.classList.remove('hidden');
                     const matchedUser = state.users.find((u) => u.email.toLowerCase() === key);
-                    state.currentUserName = matchedUser ? matchedUser.name : (key === 'staff' ? 'Canteen Staff' : userVal);
+                    state.currentUserName = matchedUser ? matchedUser.name : (key === 'staff' ? 'Canteen Personnel' : userVal);
                     state.salesReportLocation = state.staffLocation;
-                    state.salesReportFloor = 'All';
+                    state.salesReportFloor = state.staffFloor;
                     state.staffProfileFloorFilter = 'All';
-                    state.activeModule = 'dashboard';
+                    state.activeModule = 'pos';
                     updateAppShellUserUI(state.currentUserName, key === 'staff' ? 'staff@jmcfi.edu.ph' : userVal);
                     renderSidebar();
                     renderNotifications();
                     renderActiveModule();
-                    showToast(`Signed in as Staff (${state.staffLocation})`, 'success');
+                    showToast(`Signed in as Canteen Personnel (${state.staffFloor} Floor · ${state.staffLocation})`, 'success');
                 } else if (state.currentUserRole === 'manager') {
                     studentShell.classList.add('hidden');
                     appShell.classList.remove('hidden');
                     const matchedUser = state.users.find((u) => u.email.toLowerCase() === key);
-                    state.currentUserName = matchedUser ? matchedUser.name : (key === 'manager' ? 'Floor Manager' : userVal);
-                    state.salesReportLocation = 'All';
+                    state.currentUserName = matchedUser ? matchedUser.name : (key === 'manager' ? 'Canteen Manager' : userVal);
+                    state.salesReportLocation = state.managerLocation;
                     state.salesReportFloor = state.managerFloor;
                     state.staffProfileFloorFilter = state.managerFloor;
                     state.activeModule = 'dashboard';
@@ -4544,7 +4442,7 @@
                     renderSidebar();
                     renderNotifications();
                     renderActiveModule();
-                    showToast(`Signed in as Manager (${state.managerFloor} Floor)`, 'success');
+                    showToast(`Signed in as Canteen Manager (${state.managerFloor} Floor · ${state.managerLocation})`, 'success');
                 } else {
                     studentShell.classList.add('hidden');
                     appShell.classList.remove('hidden');
@@ -4690,12 +4588,8 @@
                         studentTopbarHeading.textContent = 'Customer Feedback';
                         renderStudentFeedbackPage();
                         break;
-                    case 'student-complaint':
-                        studentTopbarHeading.textContent = 'Customer Complains Log';
-                        renderStudentComplaintPage();
-                        break;
                     case 'student-profile':
-                        studentTopbarHeading.textContent = 'Students Profile (Own Profile)';
+                        studentTopbarHeading.textContent = 'Your Profile';
                         renderStudentOwnProfilePage();
                         break;
                     default: {
@@ -4817,11 +4711,13 @@
                     status: 'Active'
                 };
 
+                const penaltiesCount = typeof profile.penalties === 'number' ? profile.penalties : 0;
+
                 studentContent.innerHTML = `
           <div class="page-header-row">
             <div>
-              <h2>Students Profile (Own Profile)</h2>
-              <p>Your personal JMCFI canteen account, digital QR pass, and meal wallet summary</p>
+              <h2>Your Profile</h2>
+              <p>Manage your personal JMCFI student account information and penalty record</p>
             </div>
             <span class="badge badge-success" style="font-size:12.5px; padding:6px 12px;">${escapeHtml(profile.status)} Student Account</span>
           </div>
@@ -4829,21 +4725,16 @@
           <div class="charts-grid" style="grid-template-columns: 1fr 1.2fr;">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">Digital Canteen Pass</div>
-                <span class="badge badge-purple">QR ${escapeHtml(profile.qrStatus)}</span>
+                <div class="card-title">Penalties &amp; Account Standing</div>
+                <span class="badge ${penaltiesCount === 0 ? 'badge-success' : 'badge-danger'}">${penaltiesCount === 0 ? 'Good Standing' : 'Action Needed'}</span>
               </div>
               <div class="card-body" style="display:flex; flex-direction:column; gap:14px;">
-                <div style="display:flex; align-items:center; gap:14px;">
-                  <div class="avatar" style="width:52px; height:52px; font-size:18px;">ST</div>
-                  <div>
-                    <div style="font-size:18px; font-weight:700; color:var(--text-main);">${escapeHtml(profile.name)}</div>
-                    <div style="font-size:13px; color:var(--text-secondary);">${escapeHtml(profile.program)} &middot; ${escapeHtml(profile.id)}</div>
+                <div class="card" style="background:#FAF4F8; border:1px solid var(--primary-border); box-shadow:none; padding:18px;">
+                  <div style="font-size:12px; color:var(--text-secondary); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">Canteen Penalty Record</div>
+                  <div style="font-size:26px; font-weight:800; color:var(--primary-dark); margin-top:4px;">Penalties: ${penaltiesCount}</div>
+                  <div style="font-size:12.5px; color:var(--text-muted); margin-top:6px;">
+                    ${penaltiesCount === 0 ? 'No canteen policy violations or unpaid penalties recorded.' : 'Please settle pending canteen penalties with Canteen Management.'}
                   </div>
-                </div>
-                <div class="card" style="background:#FAF4F8; border:1px solid var(--primary-border); box-shadow:none; padding:14px;">
-                  <div style="font-size:12px; color:var(--text-secondary); font-weight:600;">Available Meal Balance</div>
-                  <div style="font-size:26px; font-weight:800; color:var(--primary-dark); margin-top:2px;">${formatCurrency(profile.balance)}</div>
-                  <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Total Completed Orders: ${profile.ordersCount}</div>
                 </div>
               </div>
             </div>
@@ -5122,115 +5013,6 @@
                 });
             }
 
-            function renderStudentComplaintPage() {
-                const studentComplaints = state.complaints.filter((c) => c.submittedByStudent);
-                studentContent.innerHTML = `
-          <div class="page-header-row">
-            <div>
-              <h2>Customer Complains Log (Student-Submitted)</h2>
-              <p>Report food quality, order accuracy, hygiene, or change concerns and track student-submitted complaints</p>
-            </div>
-            <span class="badge badge-danger" style="font-size:12.5px; padding:6px 12px;">Direct Operations Desk</span>
-          </div>
-
-          <div class="charts-grid" style="grid-template-columns: 1fr 1.35fr;">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">File a Food Complaint</div>
-              </div>
-              <div class="card-body">
-                <form id="student-cmp-form">
-                  <div class="settings-grid">
-                    <div class="form-group">
-                      <label class="form-label" for="scmp-floor">Canteen Floor</label>
-                      <select id="scmp-floor" class="select-control">
-                        <option value="4th Floor Canteen">4th Floor Canteen</option>
-                        <option value="3rd Floor Canteen">3rd Floor Canteen</option>
-                        <option value="2nd Floor Canteen">2nd Floor Canteen</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label" for="scmp-type">Concern Type</label>
-                      <select id="scmp-type" class="select-control">
-                        <option value="Food Temperature / Cold Meal">Food Temperature / Cold Meal</option>
-                        <option value="Quality / Freshness Issue">Quality / Freshness Issue</option>
-                        <option value="Wrong or Missing Item">Wrong or Missing Item</option>
-                        <option value="Cash Change Dispute">Cash Change Dispute</option>
-                        <option value="Hygiene / Cleanliness">Hygiene / Cleanliness</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="scmp-name">Your Name / Program</label>
-                    <input type="text" id="scmp-name" class="input-control" placeholder="e.g. M. Reyes (BSN-2A)" value="${escapeHtml(studentUserLabel.textContent)}" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="scmp-item">Food Item & Details of Complaint</label>
-                    <textarea id="scmp-item" class="input-control" rows="4" placeholder="Specify the food item purchased and what went wrong..." required style="resize: vertical;"></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary" style="width:100%;">Submit Food Complaint</button>
-                </form>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <div>
-                  <div class="card-title">Student-Submitted Complains Log (${studentComplaints.length})</div>
-                  <div class="card-subtitle">Filtered to student-submitted concerns synced with Canteen Operations</div>
-                </div>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr><th>ID</th><th>Date</th><th>Floor</th><th>Reported Issue</th><th>Action Taken</th><th>Status</th></tr>
-                  </thead>
-                  <tbody>
-                    ${studentComplaints.length === 0 ? `
-                      <tr><td colspan="6" style="text-align:center; color:var(--text-secondary); padding:24px;">No student-submitted complaints logged yet.</td></tr>
-                    ` : studentComplaints.map((c) => `
-                      <tr>
-                        <td><strong>${escapeHtml(c.id)}</strong></td>
-                        <td>${escapeHtml(c.date)}</td>
-                        <td>${escapeHtml(c.location)}</td>
-                        <td style="max-width: 210px;">${escapeHtml(c.issue)}</td>
-                        <td style="max-width: 210px;">${escapeHtml(c.actionTaken)}</td>
-                        <td><span class="badge ${c.status === 'Resolved' ? 'badge-success' : 'badge-warning'}">${escapeHtml(c.status)}</span></td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        `;
-
-                document.getElementById('student-cmp-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const location = document.getElementById('scmp-floor').value;
-                    const type = document.getElementById('scmp-type').value;
-                    const complainant = document.getElementById('scmp-name').value.trim() || 'JMCFI Student';
-                    const details = document.getElementById('scmp-item').value.trim();
-                    if (!details) {
-                        showToast('Please describe the food complaint.', 'error');
-                        return;
-                    }
-                    const nextId = 'CMP-2026-0' + (32 + state.complaints.length);
-                    state.complaints.unshift({
-                        id: nextId,
-                        date: 'Nov 13, 2026',
-                        complainant,
-                        issue: `[${type}] ${details}`,
-                        location,
-                        actionTaken: 'Pending review by Canteen Operations',
-                        status: 'In Progress',
-                        submittedByStudent: true
-                    });
-                    renderStudentComplaintPage();
-                    showToast(`Food complaint ${nextId} submitted to canteen management.`, 'success');
-                });
-            }
-
             function openStudentProductModal(productId) {
                 const p = state.products.find((item) => item.id === productId);
                 if (!p) return;
@@ -5505,14 +5287,15 @@
                 const activeItems = getActiveNavItems();
                 let navItem = activeItems.find((n) => n.id === state.activeModule);
                 if (!navItem && (state.currentUserRole === 'staff' || state.currentUserRole === 'manager')) {
-                    state.activeModule = 'dashboard';
-                    navItem = activeItems.find((n) => n.id === 'dashboard');
+                    const fallbackId = state.currentUserRole === 'staff' ? 'pos' : 'dashboard';
+                    state.activeModule = fallbackId;
+                    navItem = activeItems.find((n) => n.id === fallbackId);
                 }
                 if (state.activeModule === 'dashboard') {
                     if (state.currentUserRole === 'staff') {
-                        topbarHeading.textContent = `Welcome, ${state.currentUserName || 'Canteen Staff'}`;
+                        topbarHeading.textContent = `Welcome, ${state.currentUserName || 'Canteen Personnel'}`;
                     } else if (state.currentUserRole === 'manager') {
-                        topbarHeading.textContent = `Welcome, ${state.currentUserName || 'Floor Manager'} (${state.managerFloor} Floor)`;
+                        topbarHeading.textContent = `Welcome, ${state.currentUserName || 'Canteen Manager'} (${state.managerFloor} Floor · ${state.managerLocation})`;
                     } else {
                         topbarHeading.textContent = 'Welcome, Administrator';
                     }
@@ -5529,9 +5312,6 @@
                         break;
                     case 'orders':
                         renderOrdersModule();
-                        break;
-                    case 'products':
-                        renderProductsModule();
                         break;
                     case 'inventory':
                         renderInventoryModule();
@@ -5560,14 +5340,8 @@
                     case 'incident-report':
                         renderIncidentReportModule();
                         break;
-                    case 'corrective-action':
-                        renderCorrectiveActionModule();
-                        break;
                     case 'daily-monitoring-log':
                         renderDailyMonitoringLogModule();
-                        break;
-                    case 'return-merchandise':
-                        renderReturnMerchandiseModule();
                         break;
                     case 'canteen-application':
                         renderCanteenApplicationModule();
@@ -5780,7 +5554,7 @@
                   <div class="card-title">Best-Selling Products</div>
                   <div class="card-subtitle">Top 5 items by units sold</div>
                 </div>
-                <button type="button" class="link-btn" data-quick-nav="products">View Catalog</button>
+                <button type="button" class="link-btn" data-quick-nav="inventory">View Inventory</button>
               </div>
               <div class="card-body">
                 <div class="rank-list">
@@ -6800,109 +6574,15 @@
                 });
             }
 
-            function renderProductsModule() {
-                pageContent.innerHTML = `
-          <div class="page-header-row">
-            <div>
-              <h2>Products Catalog</h2>
-              <p>Manage JMCFI canteen food, drinks, and pricing</p>
-            </div>
-            <button type="button" class="btn btn-primary" id="add-product-modal-btn">+ Add New Product</button>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Menu Items (${state.products.length})</div>
-              <span class="badge badge-purple">Synced with POS</span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>SKU</th>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Units Sold</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${state.products.map((p) => {
-                    const status = getStockStatus(p.stock);
-                    return `
-                      <tr>
-                        <td><strong>${escapeHtml(p.id)}</strong></td>
-                        <td>${escapeHtml(p.name)}</td>
-                        <td><span class="badge badge-neutral">${escapeHtml(p.category)}</span></td>
-                        <td><strong>${formatCurrency(p.price)}</strong></td>
-                        <td>${p.stock}</td>
-                        <td>${p.sold}</td>
-                        <td><span class="badge ${status.badgeClass}">${status.label}</span></td>
-                      </tr>
-                    `;
-                }).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        `;
-
-                document.getElementById('add-product-modal-btn').addEventListener('click', () => {
-                    openModal(
-                        'Add New Product',
-                        `<form id="new-product-form">
-              <div class="form-group">
-                <label class="form-label">Product Name</label>
-                <input type="text" id="np-name" class="input-control" placeholder="e.g. Tuna Sandwich" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Category</label>
-                <select id="np-cat" class="select-control">
-                  <option>Meals</option><option>Snacks</option><option>Drinks</option><option>Desserts</option>
-                </select>
-              </div>
-              <div class="settings-grid">
-                <div class="form-group">
-                  <label class="form-label">Price (₱)</label>
-                  <input type="number" id="np-price" class="input-control" min="1" value="50" required />
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Initial Stock</label>
-                  <input type="number" id="np-stock" class="input-control" min="0" value="20" required />
-                </div>
-              </div>
-            </form>`,
-                        `<button type="button" class="btn btn-secondary" id="np-cancel">Cancel</button>
-             <button type="button" class="btn btn-primary" id="np-save">Save Product</button>`
-                    );
-                    document.getElementById('np-cancel').addEventListener('click', closeModal);
-                    document.getElementById('np-save').addEventListener('click', () => {
-                        const name = document.getElementById('np-name').value.trim();
-                        const cat = document.getElementById('np-cat').value;
-                        const price = parseFloat(document.getElementById('np-price').value);
-                        const stock = parseInt(document.getElementById('np-stock').value, 10);
-                        if (!name || isNaN(price) || isNaN(stock)) {
-                            showToast('Please complete all product fields.', 'error');
-                            return;
-                        }
-                        const nextId = 'P' + String(state.products.length + 1).padStart(3, '0');
-                        state.products.unshift({ id: nextId, name, category: cat, price, stock, sold: 0 });
-                        closeModal();
-                        renderProductsModule();
-                        showToast(`${name} added to catalog.`, 'success');
-                    });
-                });
-            }
-
             function renderInventoryModule() {
+                const isStaff = state.currentUserRole === 'staff';
                 pageContent.innerHTML = `
           <div class="page-header-row">
             <div>
               <h2>Inventory Control</h2>
               <p>Monitor stock levels and quickly replenish low-stock items</p>
             </div>
-            <button type="button" class="btn btn-secondary" id="inv-to-purchasing">Create Purchase Order</button>
+            ${!isStaff ? `<button type="button" class="btn btn-secondary" id="inv-to-purchasing">Create Purchase Order</button>` : ''}
           </div>
           <div class="card">
             <div class="card-header">
@@ -6944,7 +6624,8 @@
             </div>
           </div>
         `;
-                document.getElementById('inv-to-purchasing').addEventListener('click', () => navigateTo('purchasing'));
+                const invPoBtn = document.getElementById('inv-to-purchasing');
+                if (invPoBtn) invPoBtn.addEventListener('click', () => navigateTo('purchasing'));
                 pageContent.querySelectorAll('[data-restock-id]').forEach((btn) => {
                     btn.addEventListener('click', () => {
                         const prod = state.products.find((p) => p.id === btn.getAttribute('data-restock-id'));
@@ -7063,12 +6744,13 @@
             }
 
             function renderSalesReportsModule() {
-                const isStaff = state.currentUserRole === 'staff';
-                if (isStaff && state.salesReportLocation === 'All') {
-                    state.salesReportLocation = state.staffLocation || 'ExampleLocation';
+                const isManager = state.currentUserRole === 'manager';
+                if (isManager) {
+                    state.salesReportFloor = state.managerFloor || '4th';
+                    state.salesReportLocation = state.managerLocation || 'ExampleLocation';
                 }
-                const selectedFloor = state.salesReportFloor || 'All';
-                const selectedLoc = state.salesReportLocation || 'All';
+                const selectedFloor = isManager ? (state.managerFloor || '4th') : (state.salesReportFloor || 'All');
+                const selectedLoc = isManager ? (state.managerLocation || 'ExampleLocation') : (state.salesReportLocation || 'All');
 
                 const locationsList = ['ExampleLocation', 'ExampleLocation2'];
                 const calcStats = (list) => {
@@ -7085,7 +6767,7 @@
                         return matchFloor && matchLoc;
                     });
 
-                const overallList = isStaff ? getScopedProducts('All', selectedLoc) : state.products;
+                const overallList = isManager ? getScopedProducts(selectedFloor, selectedLoc) : state.products;
                 const overallStats = calcStats(overallList);
 
                 const scopedProducts = getScopedProducts(selectedFloor, selectedLoc);
@@ -7116,7 +6798,7 @@
                     : 0;
 
                 const floorCardsHtml = FLOOR_CANTEENS.map((f) => {
-                    const floorAll = isStaff ? getScopedProducts(f.id, selectedLoc) : getScopedProducts(f.id, 'All');
+                    const floorAll = getScopedProducts(f.id, 'All');
                     const floorStats = calcStats(floorAll);
                     const isFloorGeneralActive = selectedFloor === f.id && selectedLoc === 'All';
 
@@ -7136,14 +6818,12 @@
                 </div>
               </div>
 
-              ${!isStaff ? `
-                <button type="button"
-                        class="btn btn-sm ${isFloorGeneralActive ? 'btn-primary' : 'btn-secondary'}"
-                        style="width:100%;"
-                        data-sales-view="${f.id}:All">
-                  ${isFloorGeneralActive ? '✓ Viewing Floor General Report' : `View ${f.id} Floor General Report`}
-                </button>
-              ` : ''}
+              <button type="button"
+                      class="btn btn-sm ${isFloorGeneralActive ? 'btn-primary' : 'btn-secondary'}"
+                      style="width:100%;"
+                      data-sales-view="${f.id}:All">
+                ${isFloorGeneralActive ? '✓ Viewing Floor General Report' : `View ${f.id} Floor General Report`}
+              </button>
 
               <div style="border-top: 1px solid var(--border); padding-top: 12px; display:flex; flex-direction:column; gap:8px;">
                 <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-secondary);">
@@ -7173,9 +6853,9 @@
           `;
                 }).join('');
 
-                // Contextual comparison table (Floors when viewing Overall, Locations when viewing a floor)
+                // Contextual comparison table (Admin only)
                 let comparisonCardHtml = '';
-                if (selectedFloor === 'All' && !isStaff) {
+                if (selectedFloor === 'All' && !isManager) {
                     comparisonCardHtml = `
             <div class="card" style="margin-bottom: 18px;">
               <div class="card-header">
@@ -7207,7 +6887,7 @@
               </div>
             </div>
           `;
-                } else if (selectedFloor !== 'All' && selectedLoc === 'All') {
+                } else if (selectedFloor !== 'All' && selectedLoc === 'All' && !isManager) {
                     comparisonCardHtml = `
             <div class="card" style="margin-bottom: 18px;">
               <div class="card-header">
@@ -7239,20 +6919,68 @@
           `;
                 }
 
+                const assignedFloorName = floorObjSelected ? floorObjSelected.name : `${selectedFloor} Floor Canteen`;
+                const submittedList = state.submittedSalesReports || [];
+
+                const submittedReportsCardHtml = `
+            <div class="card" style="margin-top: 18px;">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">${isManager ? 'Submitted Sales Reports to School Administrator' : 'Submitted Sales Reports from Canteen Managers'} (${submittedList.length})</div>
+                  <div class="card-subtitle">${isManager ? 'Track reports submitted from your assigned floor and location to School Administration' : 'Incoming floor & specific location sales reports submitted by Canteen Managers'}</div>
+                </div>
+                <span class="badge badge-purple">${isManager ? 'Manager → Admin' : 'Admin Review Desk'}</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Ref #</th><th>Date Submitted</th><th>Floor Assigned</th><th>Location</th><th>Units Sold</th><th>Gross Revenue</th><th>Remarks</th><th>Status</th>${!isManager ? '<th>Action</th>' : ''}</tr>
+                  </thead>
+                  <tbody>
+                    ${submittedList.length === 0 ? `
+                      <tr><td colspan="${isManager ? 8 : 9}" style="text-align:center; color:var(--text-secondary); padding:24px;">No sales reports submitted yet.</td></tr>
+                    ` : submittedList.map((rep) => `
+                      <tr>
+                        <td><strong>${escapeHtml(rep.id)}</strong></td>
+                        <td>${escapeHtml(rep.date)}</td>
+                        <td>${escapeHtml(rep.floor)}</td>
+                        <td>📍 ${escapeHtml(rep.location)}</td>
+                        <td>${rep.unitsSold}</td>
+                        <td><strong>${formatCurrency(rep.grossRevenue)}</strong></td>
+                        <td style="max-width: 220px;">${escapeHtml(rep.remarks || '—')}</td>
+                        <td><span class="badge ${rep.status === 'Reviewed by Admin' ? 'badge-success' : 'badge-warning'}">${escapeHtml(rep.status)}</span></td>
+                        ${!isManager ? `
+                          <td>
+                            ${rep.status !== 'Reviewed by Admin'
+                                ? `<button type="button" class="btn btn-secondary btn-sm" data-review-sales-rep="${escapeHtml(rep.id)}">Mark Reviewed</button>`
+                                : `<span style="font-size:12px; color:var(--text-secondary);">Verified</span>`}
+                          </td>
+                        ` : ''}
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+
                 pageContent.innerHTML = `
           <div class="page-header-row">
             <div>
-              <h2>${isStaff ? 'General Sales Report ( Specified Location )' : 'General Sales Report'}</h2>
-              <p>Overall campus sales report, per-floor canteen summaries, and specific Example Canteen Location reports</p>
+              <h2>${isManager ? 'Sales Report' : 'General Sales Report'}</h2>
+              <p>${isManager
+                    ? `Sales report strictly scoped to your assigned floor and canteen location (${escapeHtml(assignedFloorName)} &middot; ${escapeHtml(selectedLoc)})`
+                    : 'Overall campus sales report, per-floor canteen summaries, and specific Example Canteen Location reports'}</p>
             </div>
             <div class="toolbar-inline">
+              ${isManager ? `<button type="button" class="btn btn-primary" id="submit-sales-admin-btn">Submit to School Administrator</button>` : ''}
               <button type="button" class="btn btn-secondary" id="export-sales-btn">Export Summary CSV</button>
-              <button type="button" class="btn btn-primary" id="print-sales-btn">Print Active Report</button>
+              <button type="button" class="btn ${isManager ? 'btn-secondary' : 'btn-primary'}" id="print-sales-btn">Print Active Report</button>
             </div>
           </div>
 
-          <!-- 1. Overall Sales Report Card -->
-          ${!isStaff ? `
+          <!-- 1. Overall Sales Report Card (Admin) or Assigned Floor & Location Banner (Canteen Manager) -->
+          ${!isManager ? `
             <div class="card" style="margin-bottom: 18px; padding: 18px 22px; border: 1.5px solid ${selectedFloor === 'All' && selectedLoc === 'All' ? 'var(--primary)' : 'var(--border)'}; ${selectedFloor === 'All' && selectedLoc === 'All' ? 'background: linear-gradient(90deg, #FDF9FC 0%, #FFFFFF 60%); box-shadow: 0 0 0 3px var(--primary-light);' : ''}">
               <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
                 <div>
@@ -7271,26 +6999,33 @@
                 </button>
               </div>
             </div>
+
+            <!-- 2. Per-Floor General Reports & Specific Canteen Locations -->
+            <div style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px;">
+              ${floorCardsHtml}
+            </div>
           ` : `
-            <div class="card" style="margin-bottom: 18px; padding: 14px 18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                <span style="font-size:12.5px; font-weight:700; color:var(--text-secondary);">Specified Location Scope:</span>
-                ${locationsList.map((loc) => `
-                  <button type="button" class="cat-pill ${selectedLoc === loc ? 'active' : ''}" data-sales-view="All:${escapeHtml(loc)}">
-                    📍 ${escapeHtml(loc)} (All Floors)
-                  </button>
-                `).join('')}
-              </div>
-              <div style="font-size:12.5px; color:var(--text-secondary);">
-                Specified Store Total: <strong style="color:var(--primary-dark);">${formatCurrency(overallStats.revenue)}</strong>
+            <div class="card" style="margin-bottom: 18px; padding: 18px 22px; border: 1.5px solid var(--primary); background: linear-gradient(90deg, #FDF9FC 0%, #FFFFFF 65%); box-shadow: 0 0 0 3px var(--primary-light);">
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px;">
+                    <span class="badge badge-purple" style="font-weight:700;">CANTEEN MANAGER · ASSIGNED SCOPE</span>
+                    <span class="badge badge-success" style="font-weight:700;">Floor Assigned: ${escapeHtml(assignedFloorName)}</span>
+                    <span class="badge badge-purple" style="font-weight:700;">📍 Location: ${escapeHtml(selectedLoc)}</span>
+                  </div>
+                  <h3 style="margin:0 0 4px 0; font-size:16.5px; color:var(--primary-dark);">${escapeHtml(assignedFloorName)} &mdash; ${escapeHtml(selectedLoc)}</h3>
+                  <p style="margin:0; font-size:13px; color:var(--text-secondary);">
+                    Showing sales exclusively for your assigned canteen floor and specific location. Click <strong>Submit to School Administrator</strong> to forward this report for administrative consolidation.
+                  </p>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:var(--text-secondary);">Assigned Location Total</div>
+                  <div style="font-size:20px; font-weight:800; color:var(--primary-dark);">${formatCurrency(activeStats.revenue)}</div>
+                  <div style="font-size:12px; color:var(--text-muted);">${activeStats.units} units sold &middot; ${activeStats.count} items</div>
+                </div>
               </div>
             </div>
           `}
-
-          <!-- 2. Per-Floor General Reports & Specific Canteen Locations -->
-          <div style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px;">
-            ${floorCardsHtml}
-          </div>
 
           <!-- 3. Active Detailed Sales Report Viewer -->
           <div id="general-sales-detail-panel">
@@ -7308,9 +7043,9 @@
             <div class="kpi-grid" style="margin-bottom: 18px;">
               <div class="kpi-card">
                 <div>
-                  <div class="kpi-label">Scoped Gross Revenue</div>
+                  <div class="kpi-label">${isManager ? 'Gross Revenue' : 'Scoped Gross Revenue'}</div>
                   <div class="kpi-value">${formatCurrency(activeStats.revenue)}</div>
-                  <div class="kpi-meta">${sharePct}% of ${isStaff ? 'store' : 'overall'} revenue</div>
+                  <div class="kpi-meta">${isManager ? `${escapeHtml(assignedFloorName)} · ${escapeHtml(selectedLoc)}` : `${sharePct}% of overall revenue`}</div>
                 </div>
                 <div class="kpi-icon">₱</div>
               </div>
@@ -7395,6 +7130,8 @@
                 </table>
               </div>
             </div>
+
+            ${submittedReportsCardHtml}
           </div>
         `;
 
@@ -7407,6 +7144,65 @@
                         const detailEl = document.getElementById('general-sales-detail-panel');
                         if (detailEl) {
                             detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    });
+                });
+
+                const submitAdminBtn = document.getElementById('submit-sales-admin-btn');
+                if (submitAdminBtn) {
+                    submitAdminBtn.addEventListener('click', () => {
+                        openModal(
+                            'Submit Sales Report to School Administrator',
+                            `<div style="padding:12px 14px; border-radius:8px; background:var(--primary-light); border:1px solid var(--primary-border); margin-bottom:14px; font-size:13px;">
+                               <div><strong>Floor Assigned:</strong> ${escapeHtml(assignedFloorName)}</div>
+                               <div><strong>Specific Location:</strong> 📍 ${escapeHtml(selectedLoc)}</div>
+                               <div><strong>Gross Revenue:</strong> ${formatCurrency(activeStats.revenue)} (${activeStats.units} units sold across ${activeStats.count} items)</div>
+                             </div>
+                             <div class="form-group">
+                               <label class="form-label" for="sr-submit-remarks">Remarks / Notes for School Administrator</label>
+                               <textarea id="sr-submit-remarks" class="input-control" rows="3" placeholder="e.g. Daily sales verified against POS cash count and ready for review." style="resize:vertical;"></textarea>
+                             </div>`,
+                            `<button type="button" class="btn btn-secondary" id="sr-submit-cancel">Cancel</button>
+                             <button type="button" class="btn btn-primary" id="sr-submit-confirm">Confirm &amp; Submit to Admin</button>`
+                        );
+                        document.getElementById('sr-submit-cancel').addEventListener('click', closeModal);
+                        document.getElementById('sr-submit-confirm').addEventListener('click', () => {
+                            const remarks = document.getElementById('sr-submit-remarks').value.trim() || `Verified sales report for ${assignedFloorName} (${selectedLoc}).`;
+                            const nextId = 'SR-2026-' + String(state.submittedSalesReports.length + 1).padStart(3, '0');
+                            const nowLabel = new Date().toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                            state.submittedSalesReports.unshift({
+                                id: nextId,
+                                date: nowLabel,
+                                floor: assignedFloorName,
+                                location: selectedLoc,
+                                submittedBy: state.currentUserName || 'Canteen Manager',
+                                unitsSold: activeStats.units,
+                                grossRevenue: activeStats.revenue,
+                                remarks,
+                                status: 'Submitted to Admin'
+                            });
+                            state.notifications.unshift({
+                                id: Date.now(),
+                                text: `New Sales Report (${nextId}) submitted by ${state.currentUserName || 'Canteen Manager'} for ${assignedFloorName} · ${selectedLoc} (${formatCurrency(activeStats.revenue)}).`,
+                                time: 'Just now',
+                                unread: true
+                            });
+                            renderNotifications();
+                            closeModal();
+                            renderSalesReportsModule();
+                            showToast(`Sales Report (${nextId}) submitted to School Administrator.`, 'success');
+                        });
+                    });
+                }
+
+                pageContent.querySelectorAll('[data-review-sales-rep]').forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const refId = btn.getAttribute('data-review-sales-rep');
+                        const found = state.submittedSalesReports.find((r) => r.id === refId);
+                        if (found) {
+                            found.status = 'Reviewed by Admin';
+                            renderSalesReportsModule();
+                            showToast(`Sales Report ${refId} marked as reviewed.`, 'success');
                         }
                     });
                 });
@@ -7435,7 +7231,7 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `JMCFI-MealHub-General-Sales-${selectedFloor}-${selectedLoc}.csv`;
+                    a.download = `${isManager ? 'JMCFI-MealHub-Sales-Report' : 'JMCFI-MealHub-General-Sales'}-${selectedFloor}-${selectedLoc}.csv`;
                     a.click();
                     URL.revokeObjectURL(url);
                     showToast(`Exported CSV for ${activeViewTitle}.`, 'success');
@@ -7859,7 +7655,7 @@
                         const location = document.getElementById('inc-loc').value.trim();
                         const severity = document.getElementById('inc-sev').value;
                         const description = document.getElementById('inc-desc').value.trim();
-                        const reportedBy = document.getElementById('inc-rep').value.trim() || 'Canteen Staff';
+                        const reportedBy = document.getElementById('inc-rep').value.trim() || 'Canteen Personnel';
                         if (!location || !description) {
                             showToast('Please enter location and description.', 'error');
                             return;
@@ -7869,159 +7665,6 @@
                         closeModal();
                         renderIncidentReportModule();
                         showToast(`Incident ${nextId} filed.`, 'success');
-                    });
-                });
-            }
-
-            function renderCorrectiveActionModule() {
-                pageContent.innerHTML = `
-          <div class="page-header-row">
-            <div>
-              <h2>Corrective Action (CAPA)</h2>
-              <p>Root cause findings, immediate containment, and preventive measures</p>
-            </div>
-            <button type="button" class="btn btn-primary" id="add-capa-btn">+ New Corrective Action</button>
-          </div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">Corrective & Preventive Actions (${state.correctiveActions.length})</div></div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>CAPA #</th><th>Finding / Issue</th><th>Root Cause</th><th>Preventive Action</th><th>Assigned To</th><th>Due Date</th><th>Status</th><th>Action</th></tr>
-                </thead>
-                <tbody>
-                  ${state.correctiveActions.map((ca) => `
-                    <tr>
-                      <td><strong>${escapeHtml(ca.id)}</strong></td>
-                      <td style="max-width: 210px;">${escapeHtml(ca.finding)}</td>
-                      <td style="max-width: 200px;">${escapeHtml(ca.rootCause)}</td>
-                      <td style="max-width: 220px;">${escapeHtml(ca.preventiveAction)}</td>
-                      <td>${escapeHtml(ca.assignedTo)}</td>
-                      <td>${escapeHtml(ca.dueDate)}</td>
-                      <td><span class="badge ${ca.status === 'Completed' ? 'badge-success' : 'badge-warning'}">${escapeHtml(ca.status)}</span></td>
-                      <td>
-                        ${ca.status !== 'Completed'
-                        ? `<button type="button" class="btn btn-secondary btn-sm" data-complete-capa="${escapeHtml(ca.id)}">Complete</button>`
-                        : `<span style="color: var(--text-secondary); font-size: 12px;">Verified</span>`}
-                      </td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        `;
-                pageContent.querySelectorAll('[data-complete-capa]').forEach((btn) => {
-                    btn.addEventListener('click', () => {
-                        const item = state.correctiveActions.find((c) => c.id === btn.getAttribute('data-complete-capa'));
-                        if (item) {
-                            item.status = 'Completed';
-                            renderCorrectiveActionModule();
-                            showToast(`${item.id} marked completed.`, 'success');
-                        }
-                    });
-                });
-                document.getElementById('add-capa-btn').addEventListener('click', () => {
-                    openModal(
-                        'New Corrective Action',
-                        `<div class="form-group"><label class="form-label">Finding / Non-Conformance</label><input type="text" id="ca-find" class="input-control" placeholder="e.g. Dish sanitizer temp below 75°C" /></div>
-             <div class="form-group"><label class="form-label">Root Cause</label><input type="text" id="ca-root" class="input-control" placeholder="Underlying cause" /></div>
-             <div class="form-group"><label class="form-label">Preventive Action</label><input type="text" id="ca-prev" class="input-control" placeholder="Long-term prevention step" /></div>
-             <div class="settings-grid">
-               <div class="form-group"><label class="form-label">Assigned To</label><input type="text" id="ca-assign" class="input-control" placeholder="Person / Office" /></div>
-               <div class="form-group"><label class="form-label">Due Date</label><input type="text" id="ca-due" class="input-control" value="Nov 20, 2026" /></div>
-             </div>`,
-                        `<button type="button" class="btn btn-secondary" id="ca-cancel">Cancel</button>
-             <button type="button" class="btn btn-primary" id="ca-save">Save CAPA</button>`
-                    );
-                    document.getElementById('ca-cancel').addEventListener('click', closeModal);
-                    document.getElementById('ca-save').addEventListener('click', () => {
-                        const finding = document.getElementById('ca-find').value.trim();
-                        const rootCause = document.getElementById('ca-root').value.trim() || 'Under assessment';
-                        const preventiveAction = document.getElementById('ca-prev').value.trim();
-                        const assignedTo = document.getElementById('ca-assign').value.trim() || 'Canteen Operations';
-                        const dueDate = document.getElementById('ca-due').value.trim() || 'Nov 20, 2026';
-                        if (!finding || !preventiveAction) {
-                            showToast('Please provide finding and preventive action.', 'error');
-                            return;
-                        }
-                        const nextId = 'CAPA-2026-' + String(9 + state.correctiveActions.length).padStart(2, '0');
-                        state.correctiveActions.unshift({ id: nextId, finding, rootCause, assignedTo, immediateAction: 'Logged', preventiveAction, dueDate, status: 'Under Review' });
-                        closeModal();
-                        renderCorrectiveActionModule();
-                        showToast(`${nextId} added.`, 'success');
-                    });
-                });
-            }
-
-            function renderReturnMerchandiseModule() {
-                pageContent.innerHTML = `
-          <div class="page-header-row">
-            <div>
-              <h2>Return Merchandise Record</h2>
-              <p>Supplier return authorizations (RMA), damaged goods, and credit memos</p>
-            </div>
-            <button type="button" class="btn btn-primary" id="add-rma-btn">+ Record Return</button>
-          </div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">Return Merchandise Log (${state.returnRecords.length})</div></div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>RMA #</th><th>Date</th><th>Supplier</th><th>Item Returned</th><th>Qty</th><th>Reason</th><th>Credit Value</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                  ${state.returnRecords.map((r) => {
-                    const badge = r.status === 'Credited' || r.status === 'Replaced' ? 'badge-success' : 'badge-warning';
-                    return `
-                      <tr>
-                        <td><strong>${escapeHtml(r.id)}</strong></td>
-                        <td>${escapeHtml(r.date)}</td>
-                        <td>${escapeHtml(r.supplier)}</td>
-                        <td>${escapeHtml(r.item)}</td>
-                        <td>${escapeHtml(r.qty)}</td>
-                        <td style="max-width: 220px;">${escapeHtml(r.reason)}</td>
-                        <td><strong>${formatCurrency(r.creditAmount)}</strong></td>
-                        <td><span class="badge ${badge}">${escapeHtml(r.status)}</span></td>
-                      </tr>
-                    `;
-                }).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        `;
-                document.getElementById('add-rma-btn').addEventListener('click', () => {
-                    openModal(
-                        'Record Return Merchandise',
-                        `<div class="form-group"><label class="form-label">Supplier</label><input type="text" id="rma-sup" class="input-control" placeholder="e.g. Davao Fresh Poultry & Meats" /></div>
-             <div class="settings-grid">
-               <div class="form-group"><label class="form-label">Item Name</label><input type="text" id="rma-item" class="input-control" placeholder="Returned product" /></div>
-               <div class="form-group"><label class="form-label">Quantity</label><input type="text" id="rma-qty" class="input-control" placeholder="e.g. 2 cases" /></div>
-             </div>
-             <div class="settings-grid">
-               <div class="form-group"><label class="form-label">Reason for Return</label><input type="text" id="rma-reason" class="input-control" placeholder="Damaged / near expiry" /></div>
-               <div class="form-group"><label class="form-label">Credit Amount (₱)</label><input type="number" id="rma-amt" class="input-control" min="0" value="500" /></div>
-             </div>`,
-                        `<button type="button" class="btn btn-secondary" id="rma-cancel">Cancel</button>
-             <button type="button" class="btn btn-primary" id="rma-save">Save Return</button>`
-                    );
-                    document.getElementById('rma-cancel').addEventListener('click', closeModal);
-                    document.getElementById('rma-save').addEventListener('click', () => {
-                        const supplier = document.getElementById('rma-sup').value.trim();
-                        const item = document.getElementById('rma-item').value.trim();
-                        const qty = document.getElementById('rma-qty').value.trim() || '1 lot';
-                        const reason = document.getElementById('rma-reason').value.trim() || 'Quality issue';
-                        const creditAmount = Math.max(0, parseFloat(document.getElementById('rma-amt').value) || 0);
-                        if (!supplier || !item) {
-                            showToast('Please enter supplier and item name.', 'error');
-                            return;
-                        }
-                        const nextId = 'RMA-2026-0' + (20 + state.returnRecords.length);
-                        state.returnRecords.unshift({ id: nextId, date: 'Nov 13, 2026', supplier, item, qty, reason, creditAmount, status: 'Pending Pickup' });
-                        closeModal();
-                        renderReturnMerchandiseModule();
-                        showToast(`Return ${nextId} recorded.`, 'success');
                     });
                 });
             }
@@ -10636,7 +10279,7 @@
                      <select id="um-role" class="select-control">
                        <option value="Cashier">Cashier</option>
                        <option value="Inventory Clerk">Inventory Clerk</option>
-                       <option value="Floor Manager">Floor Manager</option>
+                       <option value="Canteen Manager">Canteen Manager</option>
                        <option value="Administrator">Administrator</option>
                      </select>
                    </div>
